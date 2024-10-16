@@ -28,4 +28,17 @@ jobs:
         run: npm test
 
       - name: Deploy to Vercel
-        run: npx vercel --prod
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: SonarCloud Scan
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
+            -Dsonar.organization=viniciusonevesrodrigues \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+
+      - name: Run Postman tests
+        run: newman run api/Github Actions.postman_collection.json
+
+
+
