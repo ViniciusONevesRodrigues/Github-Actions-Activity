@@ -39,7 +39,8 @@ jobs:
           sonar-scanner \
           -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
           -Dsonar.organization=viniciusonevesrodrigues \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.host.url=https://sonarcloud.io
 
       - name: Install Newman
         run: npm install -g newman
