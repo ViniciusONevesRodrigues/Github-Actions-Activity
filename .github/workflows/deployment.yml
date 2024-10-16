@@ -27,7 +27,7 @@ jobs:
 
       - name: Start server
         run: npm start &
-      
+
       - name: Wait for server to start
         run: npx wait-on http://localhost:3000
 
@@ -43,9 +43,12 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v3.0.0
         with:
-          projectKey: ViniciusONevesRodrigues_Github-Actions-Activity
-          organization: viniciusonevesrodrigues
-          scannerHome: ${{ runner.temp }}/sonar-scanner
+          args: >
+            -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity
+            -Dsonar.organization=viniciusonevesrodrigues
+            -Dsonar.host.url=https://sonarcloud.io
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
