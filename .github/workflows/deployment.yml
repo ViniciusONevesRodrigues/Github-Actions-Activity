@@ -32,7 +32,7 @@ jobs:
         run: npm install -g newman
 
       - name: Run Postman tests
-        run: newman run api/sua_colecao.json
+        run: newman run ./api/sua_colecao.json
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v3.0.0
