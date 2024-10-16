@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -31,17 +32,19 @@ jobs:
         run: |
           curl -sSLo /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
           unzip /tmp/sonar-scanner-cli.zip -d /tmp
-          export PATH=/tmp/sonar-scanner-4.6.2.2472-linux/bin:$PATH
+          echo "/tmp/sonar-scanner-4.6.2.2472-linux/bin" >> $GITHUB_PATH
 
       - name: Run SonarScanner
-        run: |
-          /tmp/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+        run: sonar-scanner \
           -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
           -Dsonar.organization=viniciusonevesrodrigues \
           -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman tests
+        run: newman run api/sua_colecao.json
+
       - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN
-
-
-
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
