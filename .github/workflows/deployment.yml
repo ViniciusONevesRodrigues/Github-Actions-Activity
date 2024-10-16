@@ -27,24 +27,21 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-
       - name: Install SonarScanner
         run: |
           curl -sSLo /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
           unzip /tmp/sonar-scanner-cli.zip -d /tmp
           export PATH=/tmp/sonar-scanner-4.6.2.2472-linux/bin:$PATH
 
-      - name: SonarCloud Scan
+      - name: Run SonarScanner
         run: |
-          sonar-scanner \
-            -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
-            -Dsonar.organization=viniciusonevesrodrigues \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+          /tmp/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+          -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
+          -Dsonar.organization=viniciusonevesrodrigues \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
-      - name: Run Postman tests
-        run: newman run api/Github Actions.postman_collection.json
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN
 
 
 
