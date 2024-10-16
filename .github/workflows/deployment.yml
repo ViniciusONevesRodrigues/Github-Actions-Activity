@@ -35,7 +35,7 @@ jobs:
         run: newman run api/sua_colecao.json
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.8.0
+        uses: SonarSource/sonarcloud-github-action@v3.0.0
         with:
           projectKey: ViniciusONevesRodrigues_Github-Actions-Activity
           organization: viniciusonevesrodrigues
