@@ -45,6 +45,6 @@ jobs:
           sonar-scanner \
           -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
           -Dsonar.organization=viniciusonevesrodrigues \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.id=${{ secrets.SONAR_TOKEN }}
 
 
