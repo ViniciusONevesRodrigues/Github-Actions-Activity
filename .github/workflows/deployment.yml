@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -24,21 +25,18 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Start server
+        run: npm start &
+
+      - name: Wait for server to start
+        run: npx wait-on http://localhost:3000
+
       - name: Run tests
         run: npm test
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
-
-      - name: SonarCloud Scan
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
-            -Dsonar.organization=viniciusonevesrodrigues \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      - name: Install Newman
+        run: npm install -g newman
 
       - name: Run Postman tests
-        run: newman run api/Github Actions.postman_collection.json
-
-
+        run: newman run api/Github_Actions.postman_collection.json
 
