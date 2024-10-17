@@ -33,9 +33,15 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: SonarCloud Scan
+      - name: Download and set up SonarScanner
         run: |
-          /tmp/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+          unzip sonar-scanner-cli-4.6.2.2472-linux.zip
+          export PATH="$PATH:$(pwd)/sonar-scanner-4.6.2.2472-linux/bin"
+
+      - name: Run SonarCloud Scan
+        run: |
+          sonar-scanner \
             -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
             -Dsonar.organization=viniciusonevesrodrigues \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
