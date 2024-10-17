@@ -53,11 +53,10 @@ jobs:
       - name: Install Snyk
         run: npm install -g snyk
 
-      - name: Authenticate Snyk API
-        run: snyk auth ${{ secrets.SNYK_API_TOKEN }}
-
-      - name: Run Snyk Scan
-        run: snyk test --org=viniciusonevesrodrigues --project-name=Github-Actions-Activity
+      - name: Run Snyk Test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_API_TOKEN }}
+        run: snyk test --org=viniciusonevesrodrigues --project-name=Github-Actions-Activity --json > snyk-report.json
 
       - name: Upload Snyk report
         uses: actions/upload-artifact@v3
