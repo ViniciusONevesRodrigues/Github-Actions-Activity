@@ -51,3 +51,14 @@ jobs:
             -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity
             -Dsonar.organization=viniciusonevesrodrigues
             -Dsonar.host.url=https://sonarcloud.io
+      
+      - name: Security Scan with OWASP ZAP
+        run: |
+          docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000
+
+      - name: Run Ncat tests
+        run: |
+          sudo apt-get install ncat
+          ncat -zv localhost 3000
+    
+
