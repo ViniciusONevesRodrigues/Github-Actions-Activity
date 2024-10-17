@@ -40,3 +40,11 @@ jobs:
       - name: Run Postman tests
         run: newman run api/Github_Actions.postman_collection.json
 
+      - name: Run SonarScanner
+        run: |
+          sonar-scanner \
+          -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
+          -Dsonar.organization=viniciusonevesrodrigues \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+
