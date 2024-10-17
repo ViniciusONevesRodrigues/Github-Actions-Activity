@@ -53,10 +53,9 @@ jobs:
       - name: Run OWASP ZAP Scan
         uses: zaproxy/action-full-scan@v0.8.0
         with:
-          target: 'https://github-actions-activity.vercel.app' 
-          cmd_options: '-t 300 -r zap-report.html'
+          target: 'https://github-actions-activity.vercel.app'
+          cmd_options: '-t 300 -r /zap/wrk/zap-report.html'
           
-      # Upload do relatório do ZAP
       - name: Upload OWASP ZAP report
         uses: actions/upload-artifact@v3
         with:
