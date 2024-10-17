@@ -50,17 +50,17 @@ jobs:
             -Dsonar.organization=viniciusonevesrodrigues
             -Dsonar.host.url=https://sonarcloud.io
 
-      - name: Run OWASP ZAP Scan
-        uses: zaproxy/action-full-scan@v0.8.0
-        with:
-          target: 'https://github-actions-activity.vercel.app'
-          cmd_options: '-t 300 -r /zap/wrk/zap-report.html'
-  
-      - name: Upload OWASP ZAP report
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      - name: Run Snyk Scan
+        run: snyk test --org=viniciusonevesrodrigues --project-name=Github-Actions-Activity
+
+      - name: Upload Snyk report
         uses: actions/upload-artifact@v3
         with:
-          name: zap-report
-          path: /zap/wrk/zap-report.html
+          name: snyk-report
+          path: snyk-report.json
 
       - name: Deploy to Vercel
         run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
