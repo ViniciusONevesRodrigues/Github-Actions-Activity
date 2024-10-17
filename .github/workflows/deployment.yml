@@ -50,10 +50,15 @@ jobs:
             -Dsonar.organization=viniciusonevesrodrigues
             -Dsonar.host.url=https://sonarcloud.io
 
-      - name: Security Scan with OWASP ZAP
-        run: |
-          docker pull owasp/zap2docker-stable
-          docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000
-
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+      - name: Run OWASP ZAP Scan
+        uses: zaproxy/action-full-scan@v0.8.0
+        with:
+          target: 'https://github-actions-activity.vercel.app' 
+          cmd_options: '-t 300 -r zap-report.html'
+          
+      # Upload do relatório do ZAP
+      - name: Upload OWASP ZAP report
+        uses: actions/upload-artifact@v2
+        with:
+          name: zap-report
+          path: zap-report.html
