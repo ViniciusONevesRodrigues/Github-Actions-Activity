@@ -50,8 +50,8 @@ jobs:
             -Dsonar.organization=viniciusonevesrodrigues
             -Dsonar.host.url=https://sonarcloud.io
 
-      - name: Install Snyk
-        run: npm install -g snyk
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
       - name: Run Snyk Scan
         run: snyk test --org=viniciusonevesrodrigues --project-name=Github-Actions-Activity
