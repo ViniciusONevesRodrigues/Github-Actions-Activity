@@ -12,9 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -51,14 +49,11 @@ jobs:
             -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity
             -Dsonar.organization=viniciusonevesrodrigues
             -Dsonar.host.url=https://sonarcloud.io
-      
+
       - name: Security Scan with OWASP ZAP
         run: |
+          docker pull owasp/zap2docker-stable
           docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000
 
-      - name: Run Ncat tests
-        run: |
-          sudo apt-get install ncat
-          ncat -zv localhost 3000
-    
-
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
