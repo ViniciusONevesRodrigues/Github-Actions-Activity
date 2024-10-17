@@ -39,6 +39,8 @@ jobs:
           unzip sonar-scanner-cli-4.6.2.2472-linux.zip
 
       - name: Run SonarCloud Scan
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.12-7/x64
         run: |
           ./sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
             -Dsonar.projectKey=ViniciusONevesRodrigues_Github-Actions-Activity \
