@@ -64,5 +64,3 @@ jobs:
           name: snyk-report
           path: snyk-report.json
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
