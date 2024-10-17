@@ -55,9 +55,12 @@ jobs:
         with:
           target: 'https://github-actions-activity.vercel.app'
           cmd_options: '-t 300 -r /zap/wrk/zap-report.html'
-          
+  
       - name: Upload OWASP ZAP report
         uses: actions/upload-artifact@v3
         with:
           name: zap-report
-          path: zap-report.html
+          path: /zap/wrk/zap-report.html
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
